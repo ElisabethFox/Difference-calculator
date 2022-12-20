@@ -6,4 +6,6 @@ publish:
 
 gendiff -h:
 		node bin/gendiff.js -h
-  
+
+gendiff:
+		node bin/gendiff.js

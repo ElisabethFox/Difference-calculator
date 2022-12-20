@@ -1,10 +1,11 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync } from 'fs';
 import _ from 'lodash';
+import path from 'path';
 
 const findDifferences = (obj1, obj2) => {
     const keys1 = Object.keys(obj1);
     const keys2 = Object.keys(obj2);
-    const keys = _.union(keys1, keys2);
+    const keys = _.union(keys1, keys2).sort();
   
     const cb = (acc, key) => {
     const minusKey = `- ${key}`;
@@ -25,13 +26,18 @@ const findDifferences = (obj1, obj2) => {
     return acc;
     };
 
-    return JSON.stringify(keys.reduce(cb, {}), null, '\n');
+    const result = keys.reduce(cb, {});
+    return JSON.stringify(result, null, '\n');
   };
 
-export default (path1, path2) => {
+const getPath = (filename) => path.resolve(process.cwd(), filename);
+
+export default (file1, file2) => {
+    const path1 = getPath(file1);
     const data1 = readFileSync(path1, 'utf8');
     const obj1 = JSON.parse(data1);
 
+    const path2 = getPath(file2);
     const data2 = readFileSync(path2, 'utf8');
     const obj2 = JSON.parse(data2);
 
