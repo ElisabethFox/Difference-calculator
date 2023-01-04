@@ -6,8 +6,11 @@ overrides: []
 parserOptions:
   ecmaVersion: latest
   sourceType: module
+  ecmaVersion: 2020
+
 rules: {
   "import/extensions": 0,
   "no-console": "off",
-  "no-underscore-dangle": ["error", { "allow" : ["__filename", "__dirname"] }]
+  //"no-underscore-dangle": ["error", { "allow" : ["__filename", "__dirname"] }],
+  "no-underscore-dangle": [2, { "allow": ["__filename", "__dirname"] }]
 }
