@@ -9,8 +9,7 @@ parserOptions:
   ecmaVersion: 2020
 
 rules: {
-  "import/extensions": 0,
-  "no-console": "off",
-  //"no-underscore-dangle": ["error", { "allow" : ["__filename", "__dirname"] }],
-  "no-underscore-dangle": [2, { "allow": ["__filename", "__dirname"] }]
+  import/extensions: 0,
+  no-console: 0,
+  no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]
 }
