@@ -1,9 +1,7 @@
 import { readFileSync } from 'fs';
-import { dirname } from 'path';
-import path from 'path';
+import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import genDiff from '../src/index.js';
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -14,6 +12,6 @@ const fileName2 = getFixturePath('file2.json');
 const expectedResultName = getFixturePath('expectedResultJSON.txt');
 const result = readFileSync(expectedResultName, 'utf8');
 
-test("genDiff jests", () => {
-    expect(genDiff(fileName1, fileName2)).toBe(result);
+test('genDiff tests', () => {
+  expect(genDiff(fileName1, fileName2)).toBe(result);
 });

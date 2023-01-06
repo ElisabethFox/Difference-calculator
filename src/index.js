@@ -21,7 +21,7 @@ const findDifferences = (obj1, obj2) => {
       acc.push(`  ${plusKey}: ${obj2[key]}`);
     } else {
       acc.push(`  ${commonKey}: ${obj1[key]}`);
-    };
+    }
 
     return acc;
   };
