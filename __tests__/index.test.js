@@ -7,11 +7,35 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
-const fileName1 = getFixturePath('file1.json');
-const fileName2 = getFixturePath('file2.json');
-const expectedResultName = getFixturePath('expectedResultJSON.txt');
+const jsonFileName1 = getFixturePath('file1.json');
+const jsonFileName2 = getFixturePath('file2.json');
+
+// const yamlFileName1 = getFixturePath('file1.yaml');
+// const yamlFileName2 = getFixturePath('file2.yaml');
+
+const ymlFileName1 = getFixturePath('file1.yml');
+const ymlFileName2 = getFixturePath('file2.yml');
+
+const expectedResultName = getFixturePath('expectedResult.txt');
 const result = readFileSync(expectedResultName, 'utf8');
 
-test('genDiff tests', () => {
-  expect(genDiff(fileName1, fileName2)).toBe(result);
+test('json tests', () => {
+  expect(genDiff(jsonFileName1, jsonFileName2)).toBe(result);
 });
+
+// test('yaml tests', () => {
+//   expect(genDiff(yamlFileName1, yamlFileName2)).toBe(result);
+// });
+
+test('yml tests', () => {
+  expect(genDiff(ymlFileName1, ymlFileName2)).toBe(result);
+});
+
+// test('different extensions', () => {
+//   expect(genDiff(jsonFileName1, yamlFileName2)).toBe();
+//   expect(genDiff(jsonFileName1, ymlFileName2)).toBe();
+//   expect(genDiff(yamlFileName1, jsonFileName2)).toBe();
+//   expect(genDiff(yamlFileName1, ymlFileName2)).toBe(result);
+//   expect(genDiff(ymlFileName1, jsonFileName2)).toBe();
+//   expect(genDiff(ymlFileName1, yamlFileName2)).toBe(result);
+// });
