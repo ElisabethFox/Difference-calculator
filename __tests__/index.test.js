@@ -23,12 +23,3 @@ test('json tests', () => {
 test('yml tests', () => {
   expect(genDiff(ymlFileName1, ymlFileName2)).toBe(result);
 });
-
-// test('different extensions', () => {
-//   expect(genDiff(jsonFileName1, yamlFileName2)).toBe();
-//   expect(genDiff(jsonFileName1, ymlFileName2)).toBe();
-//   expect(genDiff(yamlFileName1, jsonFileName2)).toBe();
-//   expect(genDiff(yamlFileName1, ymlFileName2)).toBe(result);
-//   expect(genDiff(ymlFileName1, jsonFileName2)).toBe();
-//   expect(genDiff(ymlFileName1, yamlFileName2)).toBe(result);
-// });
