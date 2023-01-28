@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const indent = (depth, spacesCount = 4) => ' '.repeat(depth * spacesCount - 2);
+const indent = (depth) => ' '.repeat(depth * 4 - 2);
 
 const stringify = (value, depth) => {
   if (!_.isPlainObject(value)) {
@@ -8,8 +8,8 @@ const stringify = (value, depth) => {
   }
   const lines = Object
     .entries(value)
-    .map(([key, val]) => `${indent(depth)} ${key}: ${stringify(val, (depth + 1))}`);
-  return `{\n${lines.join('\n')}\n${indent(depth)}}`;
+    .map(([key, val]) => `${indent(depth + 1)}  ${key}: ${stringify(val, (depth + 1))}`);
+  return `{\n${lines.join('\n')}\n${indent(depth)}  }`;
 };
 
 export default (diff) => {
@@ -18,19 +18,19 @@ export default (diff) => {
       .flatMap((node) => {
         switch (node.type) {
           case 'nested': {
-            return `${indent(depth)}  ${node.key}: {\n${iter(node.value, depth + 1).join('')}}\n`;
+            return `${indent(depth)}  ${node.key}: {\n${iter(node.value, depth + 1).join('\n')}\n${indent(depth)}  }`;
           }
           case 'deleted': {
-            return `${indent(depth)}- ${node.key}: ${stringify(node.value, depth)}\n`;
+            return `${indent(depth)}- ${node.key}: ${stringify(node.value, depth)}`;
           }
           case 'added': {
-            return `${indent(depth)}+ ${node.key}: ${stringify(node.value, depth)}\n`;
+            return `${indent(depth)}+ ${node.key}: ${stringify(node.value, depth)}`;
           }
           case 'changed': {
-            return `${indent(depth)}- ${node.key}: ${stringify(node.value1, depth)}\n${indent(depth)}+ ${node.key}: ${stringify(node.value2, depth)}\n`;
+            return `${indent(depth)}- ${node.key}: ${stringify(node.value1, depth)}\n${indent(depth)}+ ${node.key}: ${stringify(node.value2, depth)}`;
           }
           case 'unchanged': {
-            return `${indent(depth)}  ${node.key}: ${stringify(node.value, depth)}\n`;
+            return `${indent(depth)}  ${node.key}: ${stringify(node.value, depth)}`;
           }
           default:
             throw new Error(`Error: ${node.type} - this type doesn't exist in this file`);
