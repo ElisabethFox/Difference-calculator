@@ -9,17 +9,47 @@ const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 
 
 const jsonFileName1 = getFixturePath('file1.json');
 const jsonFileName2 = getFixturePath('file2.json');
-
 const ymlFileName1 = getFixturePath('file1.yml');
 const ymlFileName2 = getFixturePath('file2.yml');
+const yamlFileName1 = getFixturePath('file1.yaml');
+const yamlFileName2 = getFixturePath('file2.yaml');
 
-const expectedResultName = getFixturePath('expectedResult.txt');
-const result = readFileSync(expectedResultName, 'utf8');
+const getExpectedResult = (fileName) => readFileSync(getFixturePath(fileName), 'utf8');
 
-test('json tests', () => {
-  expect(genDiff(jsonFileName1, jsonFileName2)).toBe(result);
-});
+const expectedJson = getExpectedResult('expectedJSON.txt');
+const expectedPlain = getExpectedResult('expectedPlain.txt');
+const expectedStylish = getExpectedResult('expectedStylish.txt');
 
-test('yml tests', () => {
-  expect(genDiff(ymlFileName1, ymlFileName2)).toBe(result);
+test.each([
+  {
+    a: jsonFileName1, b: jsonFileName2, format: 'json', expected: expectedJson,
+  },
+  {
+    a: jsonFileName1, b: jsonFileName2, format: 'stylish', expected: expectedStylish,
+  },
+  {
+    a: jsonFileName1, b: jsonFileName2, format: 'plain', expected: expectedPlain,
+  },
+  {
+    a: ymlFileName1, b: ymlFileName2, format: 'json', expected: expectedJson,
+  },
+  {
+    a: ymlFileName1, b: ymlFileName2, format: 'stylish', expected: expectedStylish,
+  },
+  {
+    a: ymlFileName1, b: ymlFileName2, format: 'plain', expected: expectedPlain,
+  },
+  {
+    a: yamlFileName1, b: yamlFileName2, format: 'json', expected: expectedJson,
+  },
+  {
+    a: yamlFileName1, b: yamlFileName2, format: 'stylish', expected: expectedStylish,
+  },
+  {
+    a: yamlFileName1, b: yamlFileName2, format: 'plain', expected: expectedPlain,
+  },
+])('gendiff tests', ({
+  a, b, format, expected,
+}) => {
+  expect(genDiff(a, b, format)).toBe(expected);
 });

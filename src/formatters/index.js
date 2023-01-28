@@ -12,6 +12,6 @@ export default (diff, formatName) => {
     case 'json':
       return json(diff);
     default:
-      throw new Error(`Errorr: ${formatName}...`);
+      throw new Error(`Error: ${formatName} - this format is not supported. Available formats: stylish, plain, json`);
   }
 };

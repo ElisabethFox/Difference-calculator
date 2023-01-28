@@ -1,19 +1,6 @@
 import _ from 'lodash';
 
-// const replacer = ' ';
-// const spaceCount = 4;
-// const signSpace = 2;
-
-const indent = (depth, spacesCount = 4) => ' '.repeat(depth * spacesCount).slice(0, -2);
-
-// const indent = (depth, node) => {
-//   const size = depth * spaceCount;
-
-//   if (!_.isObject(node)) {
-//     return replacer.repeat(size - signSpace);
-//   }
-//   return replacer.repeat(size);
-// };
+const indent = (depth, spacesCount = 4) => ' '.repeat(depth * spacesCount - 2);
 
 const stringify = (value, depth) => {
   if (!_.isPlainObject(value)) {
@@ -31,7 +18,7 @@ export default (diff) => {
       .flatMap((node) => {
         switch (node.type) {
           case 'nested': {
-            return `${indent(depth)}  ${node.key}: {\n${iter(node.value, depth + 1).join('')}${indent(depth)}}\n`;
+            return `${indent(depth)}  ${node.key}: {\n${iter(node.value, depth + 1).join('')}}\n`;
           }
           case 'deleted': {
             return `${indent(depth)}- ${node.key}: ${stringify(node.value, depth)}\n`;
@@ -43,10 +30,10 @@ export default (diff) => {
             return `${indent(depth)}- ${node.key}: ${stringify(node.value1, depth)}\n${indent(depth)}+ ${node.key}: ${stringify(node.value2, depth)}\n`;
           }
           case 'unchanged': {
-            return `${indent(depth)}+ ${node.key}: ${stringify(node.value, depth)}\n`;
+            return `${indent(depth)}  ${node.key}: ${stringify(node.value, depth)}\n`;
           }
           default:
-            throw new Error(`Error: ${node.type} doesn't ...`);
+            throw new Error(`Error: ${node.type} - this type doesn't exist in this file`);
         }
       });
     return result;

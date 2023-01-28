@@ -10,29 +10,28 @@ const stringify = (value) => {
   return value;
 };
 
-// const buildPath = (node, currentPath) => (currentPath !== '' ? `${currentPath}.${node.key}` : String(node.key));
-
 export default (diff) => {
-  const iter = (tree) => {
+  const iter = (tree, key = '') => {
     const result = tree
       .filter((node) => node.type !== 'unchanged')
       .flatMap((node) => {
-        // const currentPath = buildPath(node, path);
+        const keys = [...key, node.key];
+        const path = keys.join('.');
         switch (node.type) {
           case 'nested': {
-            return iter(node.value);
+            return iter(node.value, keys);
           }
           case 'deleted': {
-            return `Property '${node.key}' was removed`;
+            return `Property '${path}' was removed`;
           }
           case 'added': {
-            return `Property '${node.key}' was added with value: ${stringify(node.value)}`;
+            return `Property '${path}' was added with value: ${stringify(node.value)}`;
           }
           case 'changed': {
-            return `Property '${node.key}' was updated. From ${stringify(node.value1)} to ${stringify(node.value2)}`;
+            return `Property '${path}' was updated. From ${stringify(node.value1)} to ${stringify(node.value2)}`;
           }
           default:
-            return '';
+            throw new Error(`Error: ${node.key} - unknown node type`);
         }
       });
     return result.join('\n');
