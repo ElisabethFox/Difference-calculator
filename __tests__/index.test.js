@@ -31,6 +31,9 @@ test.each([
     a: jsonFileName1, b: jsonFileName2, format: 'plain', expected: expectedPlain,
   },
   {
+    a: jsonFileName1, b: jsonFileName2, format: undefined, expected: expectedStylish,
+  },
+  {
     a: ymlFileName1, b: ymlFileName2, format: 'json', expected: expectedJson,
   },
   {
@@ -40,6 +43,9 @@ test.each([
     a: ymlFileName1, b: ymlFileName2, format: 'plain', expected: expectedPlain,
   },
   {
+    a: ymlFileName1, b: ymlFileName2, format: undefined, expected: expectedStylish,
+  },
+  {
     a: yamlFileName1, b: yamlFileName2, format: 'json', expected: expectedJson,
   },
   {
@@ -47,6 +53,9 @@ test.each([
   },
   {
     a: yamlFileName1, b: yamlFileName2, format: 'plain', expected: expectedPlain,
+  },
+  {
+    a: yamlFileName1, b: yamlFileName2, format: undefined, expected: expectedStylish,
   },
 ])('gendiff tests', ({
   a, b, format, expected,
