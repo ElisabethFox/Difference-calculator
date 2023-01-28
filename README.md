@@ -16,13 +16,13 @@ The **difference calculator** is a program that determines the difference betwee
 For use this programm install Node.js of the latest version on the system globally. Upgrade Node.js to the latest version.
 
 **How to use it:**
-1. git clone 
+1. git clone git@github.com:ElisabethFox/frontend-project-46.git
 2. npm ci
 3. npm link
-4. *Help:* gendiff -h
-5. *Run:* gendiff -f format path1 path2
+*Help:* gendiff -h
+*Run:* gendiff -f format path1 path2
 
-**Help, defaullt formatter ans formatter stylish** 
+**Help, defaullt formatter and formatter stylish** 
 [![asciicast](https://asciinema.org/a/555300.svg)](https://asciinema.org/a/555300)
 
 **Formatter plain**
