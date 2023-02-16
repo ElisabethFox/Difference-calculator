@@ -7,30 +7,32 @@ const stringify = (value) => {
   if (typeof value === 'string') {
     return `'${value}'`;
   }
-  return value;
+  return String(value);
 };
 
-const iter = (tree, key = '') => {
+const iter = (tree, previousKey = '') => {
   const result = tree
-    .filter((node) => node.type !== 'unchanged')
-    .flatMap((node) => {
-      const keys = [...key, node.key];
+    .filter(({ type }) => type !== 'unchanged')
+    .flatMap(({
+      type, key, value, value1, value2,
+    }) => {
+      const keys = [...previousKey, key];
       const path = keys.join('.');
-      switch (node.type) {
+      switch (type) {
         case 'nested': {
-          return iter(node.value, keys);
+          return iter(value, keys);
         }
         case 'deleted': {
           return `Property '${path}' was removed`;
         }
         case 'added': {
-          return `Property '${path}' was added with value: ${stringify(node.value)}`;
+          return `Property '${path}' was added with value: ${stringify(value)}`;
         }
         case 'changed': {
-          return `Property '${path}' was updated. From ${stringify(node.value1)} to ${stringify(node.value2)}`;
+          return `Property '${path}' was updated. From ${stringify(value1)} to ${stringify(value2)}`;
         }
         default:
-          throw new Error(`Error: ${node.key} - unknown node type`);
+          throw new Error(`Error: ${key} - unknown node type`);
       }
     });
   return result;
