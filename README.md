@@ -19,7 +19,9 @@ For use this programm install Node.js of the latest version on the system global
 1. git clone git@github.com:ElisabethFox/frontend-project-46.git
 2. npm ci
 3. npm link
+
 *Help:* gendiff -h
+
 *Run:* gendiff -f format path1 path2
 
 **Help, defaullt formatter and formatter stylish** 
