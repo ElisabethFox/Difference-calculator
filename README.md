@@ -16,7 +16,7 @@ The **difference calculator** is a program that determines the difference betwee
 For use this programm install Node.js of the latest version on the system globally. Upgrade Node.js to the latest version.
 
 **How to use it:**
-1. git clone git@github.com:ElisabethFox/Dfference-calculator.git
+1. git clone git@github.com:ElisabethFox/Difference-calculator.git
 2. npm ci
 3. npm link
 
